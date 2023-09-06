@@ -1,4 +1,6 @@
 ### react ###
+dist/output.css
+
 .DS_*
 *.log
 logs
