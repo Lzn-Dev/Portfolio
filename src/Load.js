@@ -1,16 +1,12 @@
 import "./Load.css";
 import TerminalLine from "./component/TerminalLine";
-import TerminalInput from "./component/TerminalInput";
+import TerminalLoader from "./component/TerminalLoader";
 
 function Load() {
   return (
     <div className="load">
-      <TerminalLine path="usr/portfolio/loading" command="Bienvenue" />
-      <TerminalLine
-        path="usr/portfolio/loading"
-        command="Entrez votre usernarme :"
-      />
-      <TerminalInput name="username" placeholder="username" />
+      <TerminalLine path="usr/portfolio" command="Bienvenue" />
+      <TerminalLoader />
     </div>
   );
 }
