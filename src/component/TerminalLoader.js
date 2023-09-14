@@ -4,16 +4,26 @@ import { Progress } from "@nextui-org/react";
 
 function TerminalLoader() {
   const [value, setValue] = React.useState(0);
-  const [num, setNum] = React.useState(0);
+  const timeoutRef = React.useRef(null);
+  let timeOut;
+  let i = 0;
+
+  const loading = () => {
+    timeoutRef.current = setTimeout(() => {
+      i++;
+      setValue((v) => (v >= 100 ? 100 : v + 1));
+      timeOut = Math.floor(Math.random() * (300 - 0)) + 1;
+      if (i > 100) return;
+      loading(); // Appel récursif pour continuer la mise à jour
+    }, timeOut);
+  };
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      setValue((v) => (v >= 100 ? 0 : v + 1));
-      setNum(Math.floor(Math.random() * (40000000000 - 20000000 + 1)) + 1);
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
+    loading();
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, []); //
 
   return (
     <div className="terminal-loader">
@@ -24,9 +34,7 @@ function TerminalLoader() {
         className="max-w-xl"
         color="success"
       />
-      <p>
-        {value} % {num}
-      </p>
+      <p>{value} %</p>
     </div>
   );
 }
